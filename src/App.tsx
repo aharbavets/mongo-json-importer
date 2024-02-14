@@ -12,7 +12,7 @@ const convertToInsertStatement = (jsonString: string, collectionName: string) =>
         .replaceAll(/\{\"\$date\"\: \"(.+)"\}/g, 'Date("$1")')
         .replaceAll(/("\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d.\d{3}Z")/g, 'Date($1)')
 
-    return `db.${collectionName}.insertMany(${json})`
+    return `db.getCollection('${collectionName}').insertMany(${json})`
 }
 
 function App() {
