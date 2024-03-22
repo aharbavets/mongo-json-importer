@@ -7,10 +7,10 @@ import {useLocalStorage} from '@uidotdev/usehooks'
 
 const convertToInsertStatement = (jsonString: string, collectionName: string) => {
     let json = jsonString
-        .replaceAll(/\{"\$oid": "(.+)"}/g, 'ObjectId("$1")')
+        .replaceAll(/\{\s*"\$oid"\s*:\s*"(.+)"\s*}/g, 'ObjectId("$1")')
         // .replaceAll(/("[0-9a-f]{24}")/g, 'ObjectId($1)')
-        .replaceAll(/\{\"\$date\"\: \"(.+)"\}/g, 'Date("$1")')
-        .replaceAll(/("\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d.\d{3}Z")/g, 'Date($1)')
+        .replaceAll(/\{\s*"\$date"\s*:\s*"(.+)"\s*}/g, 'Date("$1")')
+        //.replaceAll(/("\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d.\d{3}Z")/g, 'Date($1)')
 
     return `db.getCollection('${collectionName}').insertMany(${json})`
 }
